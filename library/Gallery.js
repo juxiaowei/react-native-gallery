@@ -19,10 +19,14 @@ export default class Gallery extends Component {
     onPageSelected: PropTypes.func,
     onPageScrollStateChanged: PropTypes.func,
     onPageScroll: PropTypes.func,
-
+    isLocal: PropTypes.bool,
     onSingleTapConfirmed: PropTypes.func,
     onGalleryStateChanged: PropTypes.func
   };
+
+  static defaultProps = {
+    isLocal: false
+  }
 
   imageRefs = new Map();
   activeResponder = undefined;
@@ -234,7 +238,7 @@ export default class Gallery extends Component {
         }).bind(this)}
         key={'innerImage#' + pageId}
         style={{width: layout.width, height: layout.height}}
-        source={{uri: pageData}}/>
+        source={this.props.isLocal ? require(pageData) : {uri: pageData}}/>
     );
   }
 
